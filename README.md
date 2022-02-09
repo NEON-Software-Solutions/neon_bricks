@@ -1,3 +1,3 @@
-# candyman_bricks
+# NEON Bricks
 
-All the bricks i can possibly think of lie here and make my life easier.
+All the bricks NEON SOFTWARE STUDIOS could possibly think of lie here and make their life easier.
