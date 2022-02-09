@@ -1,0 +1,6 @@
+# Register bricks which can be consumed via the Mason CLI.
+bricks:
+  # Use Case Brick
+  # Run `mason make use_case` to try it out.
+  use_case:
+    path: bricks/use_case

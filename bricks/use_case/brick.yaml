@@ -1,0 +1,14 @@
+name: use_case
+description: A brick to generate all you need for a new Use Case following Clean Architecture
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: The Name of the use case
+    default: template
+    prompt: What is the name of the use case?
+  type:
+    type: string
+    description: The type of the use case
+    default: String
+    prompt: What is the type of the use case?
