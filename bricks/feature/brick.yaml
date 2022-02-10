@@ -1,5 +1,5 @@
 name: feature
-description: A brick to build a new feature respecting Clean Architecture.
+description: A brick to build a new feature following Clean Architecture.
 version: 0.1.0+1
 vars:
   feature_name:
