@@ -3,3 +3,5 @@ bricks:
     path: bricks/use_case
   feature:
     path: bricks/feature
+  firebase_injections:
+    path: bricks/firebase_injections

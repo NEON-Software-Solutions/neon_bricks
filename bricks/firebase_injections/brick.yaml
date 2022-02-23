@@ -1,0 +1,3 @@
+name: firebase_injections
+description: Spawns the pre-defined Firebase Injection Module to work with getIt
+version: 0.1.0+1
