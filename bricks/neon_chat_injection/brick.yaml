@@ -1,0 +1,13 @@
+name: neon_chat_injection
+description: A brick to generate the getIt Injection Boilerplate for the NEON Chat Package.
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  project_name:
+    type: string
+    description: The name of the project
+    default: example
+    prompt: What is the name of the project?

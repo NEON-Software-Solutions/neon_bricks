@@ -5,3 +5,5 @@ bricks:
     path: bricks/feature
   firebase_injections:
     path: bricks/firebase_injections
+  neon_chat_injection:
+    path: bricks/neon_chat_injection
