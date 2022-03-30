@@ -8,8 +8,9 @@ import 'package:neon_chat/neon_chat.dart';
 
 @module
 abstract class NEONChatInjectableModule {
-  //TODOINIT: fill the firebase keys with custom ones if needed.
-  //TODOINIT: adjust firebaseKeys environment to the environment used by getIt
+  //TODO: fill the firebase keys with custom ones if needed.
+
+  //TODO: adjust firebaseKeys environment to the environment used by getIt
   @lazySingleton
   FirebaseKeys get firebaseKeys => const FirebaseKeys();
 
@@ -94,18 +95,6 @@ abstract class NEONChatInjectableModule {
   @lazySingleton
   HideConversationUC get hideConversationUC =>
       HideConversationUC(conversationsRepository);
-
-  @lazySingleton
-  ChatBloc get chatBloc => ChatBloc(
-      firebaseAuth: getIt<FirebaseAuth>(),
-      hideMessageUC: hideMessageUC,
-      deleteMessageUC: deleteMessageUC,
-      markAsSeenUC: markAsSeenUC,
-      markGroupMessageAsSeenUC: markGroupMessageAsSeenUC,
-      sendPlatformFileMessageUC: sendPlatformFileMessageUC,
-      sendFileMessageUC: sendFileMessageUC,
-      sendTextMessageUC: sendTextMessageUC,
-      initStreamUC: initializeConversationStreamUC);
 
   @lazySingleton
   ChatSearchBloc get chatSearchBloc => ChatSearchBloc();
