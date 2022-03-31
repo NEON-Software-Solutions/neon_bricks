@@ -84,9 +84,9 @@ abstract class NEONChatInjectableModule {
   @lazySingleton
   InitializeConversationItemStreamUC get initializeConversationItemStreamUC =>
       InitializeConversationItemStreamUC(
-          conversationRepository: conversationRepository,
-          conversationsRepository: conversationsRepository,
-          userProfileRepository: firebaseUserProfileRepository);
+        conversationRepository: conversationRepository,
+        conversationsRepository: conversationsRepository,
+      );
 
   @lazySingleton
   InitializeConversationsStreamUC get initializeConversationsStreamUC =>
@@ -97,7 +97,19 @@ abstract class NEONChatInjectableModule {
       HideConversationUC(conversationsRepository);
 
   @lazySingleton
-  ChatSearchBloc get chatSearchBloc => ChatSearchBloc();
+  GetFirebaseUserUC get getFirebaseUserUC =>
+      GetFirebaseUserUC(firebaseUserProfileRepository);
+
+  @lazySingleton
+  CreateConversationUC get createConversationUC =>
+      CreateConversationUC(conversationsRepository);
+
+  @lazySingleton
+  CreateGroupConversationUC get createGroupConversationUC =>
+      CreateGroupConversationUC(conversationsRepository);
+
+  @lazySingleton
+  ConversationSearchBloc get conversationSearchBloc => ConversationSearchBloc();
 
   @lazySingleton
   CurrentConversationCubit get currentConversationCubit =>
@@ -105,9 +117,13 @@ abstract class NEONChatInjectableModule {
 
   @lazySingleton
   ConversationsBloc get conversationsBloc => ConversationsBloc(
-      initializeConversationsStreamUC: initializeConversationsStreamUC,
-      initializeConversationItemStreamUC: initializeConversationItemStreamUC,
-      hideConversationUC: hideConversationUC);
+        initializeConversationsStreamUC: initializeConversationsStreamUC,
+        initializeConversationItemStreamUC: initializeConversationItemStreamUC,
+        hideConversationUC: hideConversationUC,
+        getFirebaseUserUC: getFirebaseUserUC,
+        createConversationUC: createConversationUC,
+        createGroupConversationUC: createGroupConversationUC,
+      );
 
   @lazySingleton
   ConversationsSearchBloc get conversationsSearchBloc =>
