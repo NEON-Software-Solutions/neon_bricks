@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';{{#user_feature}}
 import 'package:flutter/cupertino.dart';{{/user_feature}}
 
-{{#internet_cubit}}import 'package:candy_core/candy_core.dart';{{/internet_cubit}}
+{{#internet_cubit}}import 'package:neon_core/neon_core.dart';{{/internet_cubit}}
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';{{#user_feature}}
 import 'package:auto_route/auto_route.dart';{{/user_feature}}
 import 'package:easy_localization/easy_localization.dart';{{#main_app_loader_imports_flutter_bloc}}

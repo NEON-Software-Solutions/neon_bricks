@@ -9,7 +9,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';{{/theme_switching}}
 {{^theme_switching}}import 'package:bloc/bloc.dart';{{/theme_switching}}{{#local_cache_datasource}}
 import 'package:hive_flutter/hive_flutter.dart';{{/local_cache_datasource}}
-import 'package:candy_core/candy_core.dart';
+import 'package:neon_core/neon_core.dart';
 import 'package:easy_localization/easy_localization.dart';{{#firebase_localization_loader_feature}}
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_remote_config_localization_loader/firebase_remote_config_localization_loader.dart';{{/firebase_localization_loader_feature}}{{#firebase_crashlytics_feature}}

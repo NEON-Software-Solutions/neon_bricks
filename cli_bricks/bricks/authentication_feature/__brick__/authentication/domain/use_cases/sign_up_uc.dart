@@ -1,4 +1,4 @@
-import 'package:candy_core/candy_core.dart';
+import 'package:neon_core/neon_core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 

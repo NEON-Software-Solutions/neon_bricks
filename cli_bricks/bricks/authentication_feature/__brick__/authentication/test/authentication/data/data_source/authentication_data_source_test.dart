@@ -9,7 +9,7 @@ void main(){
 }
 {{/authentication_firebase_auth_feature}}
 {{#authentication_firebase_auth_feature}}
-import 'package:candy_core/candy_core.dart';
+import 'package:neon_core/neon_core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';

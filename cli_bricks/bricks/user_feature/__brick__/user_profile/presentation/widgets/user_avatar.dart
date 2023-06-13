@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 {{#theme_switching}}import 'package:flutter_bloc/flutter_bloc.dart';{{/theme_switching}}
-import 'package:candy_core/candy_core.dart';
+import 'package:neon_core/neon_core.dart';
 
 {{#theme_switching}}import 'package:{{project_name}}/features/theme_switching/theme_switching.dart';{{/theme_switching}}{{^theme_switching}}
 import 'package:{{project_name}}/app_settings.dart';{{/theme_switching}}

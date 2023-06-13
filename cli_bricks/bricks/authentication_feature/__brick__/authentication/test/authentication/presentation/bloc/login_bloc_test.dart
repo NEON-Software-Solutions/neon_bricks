@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:candy_core/candy_core.dart';
+import 'package:neon_core/neon_core.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:{{project_name}}/features/authentication/authentication.dart';
