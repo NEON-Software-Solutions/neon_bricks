@@ -10,7 +10,7 @@ part 'router.gr.dart';
 
 //TODO: set this up
 
-@CupertinoAutoRouter(
+@AutoRouterConfig(
   replaceInRouteName: 'Loader|Page,Route',
   routes: <AutoRoute>[
     AutoRoute<dynamic>(
