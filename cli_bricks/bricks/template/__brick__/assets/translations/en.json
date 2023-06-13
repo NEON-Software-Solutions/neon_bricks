@@ -1,0 +1,28 @@
+{
+    "appTitle": "Flutter Template Project",
+    "homePageTitle": "Flutter Template Project Home Page",
+    "errorSomethingWentWrongPleaseTryAgain": "Something went wrong...\nPlease try again!",{{#theme_switching}}
+    "switchToDarkTheme": "Dark Mode",
+    "switchToLightTheme": "Light Mode",{{/theme_switching}}{{#internet_cubit}}
+    "noInternetConnection": "No internet connection! 😱",{{/internet_cubit}}{{#authentication_firebase_auth_feature}}
+    "invalidEmail": "Please use a valid email.",
+    "userDisabled": "It seems that your account has been disabled. We'll take a look at it.",
+    "userNotFound": "We couldn't find a user with that email address.",
+    "wrongPassword": "Wrong password",
+    "emailAlreadyInUse": "Apparently you already have an account.",
+    "operationNotAllowed": "Authentification with Email and Passwort is not activated.",
+    "weakPassword": "The password is too weak.",
+    "noUserName": "No Username yet",{{/authentication_firebase_auth_feature}}
+    {{#uses_authentication}}
+    "login": "Login",
+    "logout": "Logout",
+    "signUp": "Sign Up",
+    "hintEmail": "Email",
+    "hintPassword": "Password",
+    "hintUsername": "Username",
+    "goToLogin": "Already have an account?",
+    "goToSignUp": "Sign Up!",
+    {{#toast_service}}"errorYouHaveBeenLoggedOut": "You have been logged out",{{/toast_service}}{{/uses_authentication}}{{#share_feature}}
+    "shareDescription": "I'd like to share that with you:",{{/share_feature}}
+    "youAreLoggedIn": "{userName}, you are logged in."
+}

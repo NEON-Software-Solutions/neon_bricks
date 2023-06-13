@@ -1,0 +1,20 @@
+name: share_feature
+description: A brick to integrate the Share Feature via Firebase Dynamic Links.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  project_name:
+    type: string
+    description: The name of the project
+    default: example
+    prompt: What is the name of the project?
+  toast_service:
+    type: boolean
+    description: Whether the toast service is available
+    default: false
+    prompt: Is the toast service available?
+

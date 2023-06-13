@@ -1,0 +1,29 @@
+name: user_feature
+description: A brick to generate the user feature.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  project_name:
+    type: string
+    description: The name of the project
+    default: example
+    prompt: What is the name of the project?
+  theme_switching:
+    type: boolean
+    description: Whether this feature can access the theme switching cubit
+    default: false
+    prompt: Is there a theme switching feature in this project?
+  authentication_own_backend_feature:
+    type: boolean
+    description: Whether the Authentication with own backend Feature is integrated or not
+    default: false
+    prompt: Do you use the Authentication with own backend Feature in this project?
+  authentication_firebase_auth_feature:
+    type: boolean
+    description: Whether the Authentication with FirebaseAuth Feature is integrated or not
+    default: false
+    prompt: Do you use the Authentication with FirebaseAuth Feature in this project?

@@ -1,0 +1,69 @@
+name: pubspec
+description: A brick to generate the pubspec.yaml of the template project.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  project_name:
+    type: string
+    description: The name of the project
+    default: example
+    prompt: What is the name of the project?
+  project_description:
+    type: string
+    description: The description of the project
+    default: My template flutter app to start any project from.
+    prompt: What is the description of the project?
+  toast_service:
+    type: boolean
+    description: The toast service boilerplate has to be generated.
+    default: false
+    prompt: Is the toast service boilerplate wanted?
+  internet_cubit:
+    type: boolean
+    description: Whether the InternetConnectionCubit should be integrated or not
+    default: true
+    prompt: Do you want to integrate the InternetConnectionCubit?
+  theme_switching:
+    type: boolean
+    description: Whether the Theme Switching Feature should be integrated or not
+    default: false
+    prompt: Do you want to integrate the Theme Switching Feature?
+  local_cache_datasource:
+    type: boolean
+    description: Whether a LocalCacheDataSource should be integrated in the project or not
+    default: false
+    prompt: Do you want to integrate the LocalCacheDataSource in this project?
+  user_feature:
+    type: boolean
+    description: Whether the User Profile Feature should be integrated or not
+    default: false
+    prompt: Do you want to integrate the User Profile Feature?
+  authentication_own_backend_feature:
+    type: boolean
+    description: Whether the Authentication with own backend Feature should be integrated or not
+    default: false
+    prompt: Do you want to integrate the Authentication with own backend Feature?
+  authentication_firebase_auth_feature:
+    type: boolean
+    description: Whether the Authentication with FirebaseAuth Feature should be integrated or not
+    default: false
+    prompt: Do you want to integrate the Authentication with FirebaseAuth Feature?
+  firebase_localization_loader_feature:
+    type: boolean
+    description: Whether the Firebase Remote Config Internationalization Loader should be integrated or not
+    default: false
+    prompt: Do you want to use Firebase Remote Config as the Internationalization Asset Loader?
+  firebase_crashlytics_feature:
+    type: boolean
+    description: Whether the App uses Firebase Crashlytics or not
+    default: false
+    prompt: Do you want to use Firebase Crashlytics?
+  share_feature:
+    type: boolean
+    description: Whether the App uses the Share Feature or not
+    default: false
+    prompt: Do you want to integrate the Share Feature?

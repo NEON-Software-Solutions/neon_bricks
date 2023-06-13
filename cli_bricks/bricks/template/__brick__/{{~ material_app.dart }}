@@ -1,0 +1,15 @@
+MaterialApp.router(
+      title: 'appTitle'.tr(),
+      routerDelegate: _appRouter.delegate(
+        navigatorObservers: () => [
+          AppRouteObserver(),
+        ],
+      ),
+      routeInformationParser:
+          _appRouter.defaultRouteParser(includePrefixMatches: true),
+      routeInformationProvider: _appRouter.routeInfoProvider(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: {{#theme_switching}}currentTheme{{/theme_switching}}{{^theme_switching}}appTheme{{/theme_switching}},
+    )
