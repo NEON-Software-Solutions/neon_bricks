@@ -28,7 +28,7 @@ dependencies:
   hydrated_bloc: ^8.1.0{{/needs_hydrated_bloc}}{{#needs_system_interface_title}}
 
   # System interface{{/needs_system_interface_title}}{{#needs_path_provider}}
-  path_provider: ^2.0.11{{/needs_path_provider}}{{#needs_hive}}
+  path_provider: ^2.0.15{{/needs_path_provider}}{{#needs_hive}}
   hive: ^2.2.3
   hive_flutter: ^1.1.0{{/needs_hive}}{{#needs_dio}}
   
@@ -40,14 +40,14 @@ dependencies:
   
   # Code Generation{{/needs_code_gen_title}}{{#needs_retrofit}}
   retrofit: ^3.3.1{{/needs_retrofit}}{{#needs_json_annotation}}
-  json_annotation: ^4.7.0{{/needs_json_annotation}}{{#needs_firebase_title}}
+  json_annotation: ^4.8.1{{/needs_json_annotation}}{{#needs_firebase_title}}
   
   # Firebase{{/needs_firebase_title}}{{#needs_firebase_core}}
-  firebase_core: ^2.1.1{{/needs_firebase_core}}{{#needs_firebase_auth}}
-  firebase_auth: ^4.0.1{{/needs_firebase_auth}}{{#needs_firebase_remote_config}}
-  firebase_remote_config: ^3.0.2{{/needs_firebase_remote_config}}{{#needs_firebase_crashlytics}}
-  firebase_crashlytics: ^3.0.2{{/needs_firebase_crashlytics}}{{#needs_firebase_dynamic_links}}
-  firebase_dynamic_links: ^5.0.4{{/needs_firebase_dynamic_links}}
+  firebase_core: ^2.14.0{{/needs_firebase_core}}{{#needs_firebase_auth}}
+  firebase_auth: ^4.6.3{{/needs_firebase_auth}}{{#needs_firebase_remote_config}}
+  firebase_remote_config: ^4.2.3{{/needs_firebase_remote_config}}{{#needs_firebase_crashlytics}}
+  firebase_crashlytics: ^3.3.3{{/needs_firebase_crashlytics}}{{#needs_firebase_dynamic_links}}
+  firebase_dynamic_links: ^5.3.3{{/needs_firebase_dynamic_links}}
 
   # Navigation
   auto_route: ^7.4.0
@@ -69,12 +69,14 @@ dependencies:
   # Own
   neon_core:
     git: 
-      url: https://github.com/NEON-Software-Solutions/neon_flutter_packages/tree/main/neon_core
+      url: git@github.com:NEON-Software-Solutions/neon_flutter_packages.git
+      path: neon_core
       ref: main{{#needs_firebase_remote_config}}
 
   firebase_remote_config_localization_loader:
     git: 
-        url: https://github.com/NEON-Software-Solutions/neon_flutter_packages/tree/main/firebase_remote_config_localization_loader
+        url: git@github.com:NEON-Software-Solutions/neon_flutter_packages.git
+        path: firebase_remote_config_localization_loader
         ref: main{{/needs_firebase_remote_config}}
 
   # Logging
