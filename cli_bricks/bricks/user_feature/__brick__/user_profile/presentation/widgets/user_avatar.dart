@@ -27,7 +27,7 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     {{^theme_switching}}final theme = appTheme;{{/theme_switching}}
-    final hasSpecialShape = !isWebInMobile(context);
+    final hasSpecialShape = !isWebOnMobile(context);
     {{#theme_switching}}return BlocBuilder<ThemeCubit, ThemeData>(builder: (context, theme) { {{/theme_switching}}
       return Stack(
         alignment: AlignmentDirectional.center,
@@ -39,7 +39,7 @@ class UserAvatar extends StatelessWidget {
               height: size,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: isWebInMobile(context) || withBorder
+                border: isWebOnMobile(context) || withBorder
                     ? Border.all(
                         width: 1,
                         color: theme.iconTheme.color ?? Colors.white,

@@ -16,6 +16,7 @@ import 'package:{{project_name}}/features/authentication/authentication.dart';{{
 
 {{#uses_authentication}}{{#toast_service}}BuildContext? cachedContext;{{/toast_service}}{{/uses_authentication}}
 
+@RoutePage()
 class MainAppLoader extends StatelessWidget {
   const MainAppLoader({Key? key}) : super(key: key);
 

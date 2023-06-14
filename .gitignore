@@ -1,2 +1,6 @@
 **/.DS_Store
 **/.mason/
+**/mason-lock.json
+**/.dart_tool/*
+**/pubspec.lock
+**/bricks/template/hooks/.dart_tool/*
