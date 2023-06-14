@@ -10,8 +10,12 @@ Implementiere neue 🧱 in einem eigenen Verzeichnis, das in dem Ordner ```brick
 
 ## CLI Bricks
 
+[Doku][cli_docs_link]
+
 Unsere [NEON CLI](https://github.com/NEON-Software-Solutions/NEON_cli) arbeitet auch mit Mason Bricks (weil die einfach geil sind). Mehr Infos dazu findest du im Readme des cli_bricks Ordners.
 
 ### Achtung
 
 Bitte bei jedem Update der CLI Bricks auch die [Doku](https://github.com/julien-neon/NEON_cli_docs) anpassen!
+
+[cli_docs_link]: https://docs.page/julien-neon/NEON_cli_docs
