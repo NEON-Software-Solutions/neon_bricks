@@ -66,17 +66,16 @@ void main() async {
   );
   await localizationLoader.init();{{/firebase_localization_loader_feature}}
 
-  {{#theme_switching}}final storage = await HydratedStorage.build(
+  {{#theme_switching}}HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );{{/theme_switching}}
 
-  Bloc.observer = AppBlocObserver(); {{^theme_switching}}{{#firebase_crashlytics_feature}}
-  FlutterError.onError = getIt<FirebaseCrashlytics>().recordFlutterFatalError;{{/firebase_crashlytics_feature}}{{/theme_switching}}
+  Bloc.observer = AppBlocObserver();{{#firebase_crashlytics_feature}}
+  FlutterError.onError = getIt<FirebaseCrashlytics>().recordFlutterFatalError;{{/firebase_crashlytics_feature}}
 
-  {{#theme_switching}}HydratedBlocOverrides.runZoned(() { {{#firebase_crashlytics_feature}}
-  FlutterError.onError = getIt<FirebaseCrashlytics>().recordFlutterFatalError;{{/firebase_crashlytics_feature}}{{/theme_switching}} runApp(
+  runApp(
     EasyLocalization({{^firebase_localization_loader_feature}}
       path: 'assets/translations',
       supportedLocales: [
@@ -92,5 +91,5 @@ void main() async {
       useOnlyLangCode: true,
       child: const App(),
     ),
-  ){{#theme_switching}};},storage: storage,){{/theme_switching}};
+  );
 }
