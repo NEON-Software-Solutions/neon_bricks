@@ -7,3 +7,7 @@ bricks:
     git: 
       url: "https://github.com/NEON-Software-Solutions/NEON_bricks"
       path: bricks/feature
+  firebase_injections:
+    git: 
+      url: "https://github.com/NEON-Software-Solutions/NEON_bricks"
+      path: bricks/firebase_injections
