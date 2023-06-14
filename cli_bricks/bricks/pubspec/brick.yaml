@@ -1,5 +1,5 @@
 name: pubspec
-description: A brick to generate the pubspec.yaml of the template project.
+description: A brick to generate the pubspec.yaml of the NEON Core App.
 
 version: 0.1.0+1
 
@@ -15,7 +15,7 @@ vars:
   project_description:
     type: string
     description: The description of the project
-    default: My template flutter app to start any project from.
+    default: Die NEON Core App.
     prompt: What is the description of the project?
   toast_service:
     type: boolean

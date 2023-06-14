@@ -1,5 +1,5 @@
-name: template
-description: A brick to generate the template project.
+name: core_app
+description: A brick to generate the NEON Core App.
 
 version: 0.1.0+1
 

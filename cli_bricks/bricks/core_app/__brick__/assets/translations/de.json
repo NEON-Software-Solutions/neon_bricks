@@ -1,6 +1,6 @@
 {
-    "appTitle": "Flutter Template Projekt",
-    "homePageTitle": "Flutter Template Projekt Heimseite",
+    "appTitle": "NEON Core App",
+    "homePageTitle": "NEON Core App Heimseite",
     "errorSomethingWentWrongPleaseTryAgain": "Irgendetwas ist schiefgelaufen...\nBitte versuche es noch einmal!",{{#theme_switching}}
     "switchToDarkTheme": "Dark Mode",
     "switchToLightTheme": "Light Mode",{{/theme_switching}}{{#internet_cubit}}

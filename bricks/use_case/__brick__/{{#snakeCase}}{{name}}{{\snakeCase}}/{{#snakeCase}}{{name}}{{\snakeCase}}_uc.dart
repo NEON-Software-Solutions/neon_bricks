@@ -2,7 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:template_project/core/core.dart';
+import 'package:your_project_name/core/core.dart';
 
 import '{{#snakeCase}}{{name}}{{/snakeCase}}_params.dart';
 
