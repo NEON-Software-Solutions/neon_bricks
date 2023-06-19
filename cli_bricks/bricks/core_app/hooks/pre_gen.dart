@@ -44,8 +44,7 @@ Map<String, dynamic> _buildMainAppSpecs({
       vars['authentication_own_backend_feature'] ||
       vars['authentication_firebase_auth_feature'];
 
-  final mainAppLoaderImportsCore =
-      vars['internet_cubit'] || vars['user_feature'];
+  final mainAppLoaderImportsCore = vars['internet_cubit'];
 
   final initializesFirebaseApp = vars['authentication_firebase_auth_feature'] ||
       vars['firebase_localization_loader_feature'] ||
