@@ -105,8 +105,8 @@ flutter_icons:
   remove_alpha_ios: true
   image_path: "assets/img/launcher_icon.png"
 
-flutter: {{^firebase_localization_loader_feature}}
-  generate: true{{/firebase_localization_loader_feature}}
+flutter: {{^needs_easy_localization}}
+  generate: true{{/needs_easy_localization}}
   uses-material-design: true
   assets:
     - assets/translations/
