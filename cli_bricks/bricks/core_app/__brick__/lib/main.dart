@@ -8,9 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';{{/theme_switching}}
 {{^theme_switching}}import 'package:bloc/bloc.dart';{{/theme_switching}}{{#local_cache_datasource}}
-import 'package:hive_flutter/hive_flutter.dart';{{/local_cache_datasource}}
-import 'package:neon_core/neon_core.dart';
-import 'package:easy_localization/easy_localization.dart';{{#firebase_localization_loader_feature}}
+import 'package:hive_flutter/hive_flutter.dart';{{/local_cache_datasource}}{{^firebase_localization_loader_feature}}
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';{{/firebase_localization_loader_feature}}
+import 'package:neon_core/neon_core.dart';{{#firebase_localization_loader_feature}}
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_remote_config_localization_loader/firebase_remote_config_localization_loader.dart';{{/firebase_localization_loader_feature}}{{#firebase_crashlytics_feature}}
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';{{/firebase_crashlytics_feature}}{{#initializes_firebase_app}}
@@ -23,8 +24,8 @@ import 'package:{{project_name}}/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();{{#local_cache_datasource}}
-  await Hive.initFlutter();{{/local_cache_datasource}}
-  await EasyLocalization.ensureInitialized();{{#initializes_firebase_app}}
+  await Hive.initFlutter();{{/local_cache_datasource}}{{#firebase_localization_loader_feature}}
+  await EasyLocalization.ensureInitialized();{{/firebase_localization_loader_feature}}{{#initializes_firebase_app}}
 
   //TODO: if uncommenting this provokes an error, go setup firebase (check out the Setup Readme in the Auth Feature Folder!)
   //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);{{/initializes_firebase_app}}
@@ -75,7 +76,7 @@ void main() async {
   Bloc.observer = AppBlocObserver();{{#firebase_crashlytics_feature}}
   FlutterError.onError = getIt<FirebaseCrashlytics>().recordFlutterFatalError;{{/firebase_crashlytics_feature}}
 
-  runApp(
+  runApp({{#firebase_localization_loader_feature}}
     EasyLocalization({{^firebase_localization_loader_feature}}
       path: 'assets/translations',
       supportedLocales: [
@@ -90,6 +91,7 @@ void main() async {
       useFallbackTranslations: true,
       useOnlyLangCode: true,
       child: const App(),
-    ),
+    ),{{/firebase_localization_loader_feature}}{{^firebase_localization_loader_feature}}
+    const App(),{{/firebase_localization_loader_feature}}
   );
 }

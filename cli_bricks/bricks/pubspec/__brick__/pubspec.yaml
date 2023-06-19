@@ -18,6 +18,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  {{^firebase_localization_loader_feature}}
+  intl: any {{/firebase_localization_loader_feature}}
   cupertino_icons: ^1.0.5
   auto_size_text_pk: ^3.0.0
 
@@ -104,7 +106,8 @@ flutter_icons:
   remove_alpha_ios: true
   image_path: "assets/img/launcher_icon.png"
 
-flutter:
+flutter: {{^firebase_localization_loader_feature}}
+  generate: true{{/firebase_localization_loader_feature}}
   uses-material-design: true
   assets:
     - assets/translations/

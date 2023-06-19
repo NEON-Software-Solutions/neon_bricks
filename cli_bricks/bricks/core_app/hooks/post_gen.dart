@@ -43,6 +43,26 @@ Future<void> run(HookContext context) async {
     );
   }
 
+  if (vars['firebase_localization_loader_feature']) {
+    // delete arb files and l10n.yaml
+    await _delete(
+      dir: projectLibDir,
+      fileOrDirName: 'l10n',
+    );
+    await _delete(
+      dir: projectRootDir,
+      fileOrDirName: 'l10n.yaml',
+    );
+  } else {
+    // delete translation files
+    await _delete(
+      dir: Directory(
+        path.join(projectRootDir.path, 'assets'),
+      ),
+      fileOrDirName: 'translations',
+    );
+  }
+
   // the critical values for the multi bloc to be used in app.dart are
   // theme_switching, internet_cubit and authentication_own_backend_feature.
   // thus, we count whether more than one of those is set to true.
