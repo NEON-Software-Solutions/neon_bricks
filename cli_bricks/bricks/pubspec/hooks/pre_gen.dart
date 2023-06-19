@@ -74,6 +74,7 @@ Map<String, bool> _getPubspecPackages(Map<String, dynamic> vars) {
     'needs_firebase_auth': vars['authentication_firebase_auth_feature'],
     'needs_firebase_remote_config':
         vars['firebase_localization_loader_feature'],
+    'needs_easy_localization': vars['firebase_localization_loader_feature'],
     'needs_firebase_crashlytics': vars['firebase_crashlytics_feature'],
     'needs_firebase_dynamic_links': vars['share_feature'],
     'needs_share_plus': vars['share_feature'],

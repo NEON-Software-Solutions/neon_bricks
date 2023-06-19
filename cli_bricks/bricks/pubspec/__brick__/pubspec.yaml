@@ -17,9 +17,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter
-  {{^firebase_localization_loader_feature}}
-  intl: any {{/firebase_localization_loader_feature}}
+    sdk: flutter{{^needs_easy_localization}}
+  intl: any{{/needs_easy_localization}}
   cupertino_icons: ^1.0.5
   auto_size_text_pk: ^3.0.0
 
@@ -56,10 +55,10 @@ dependencies:
 
   # Dependency Injection
   injectable: ^2.1.2
-  get_it: ^7.6.0
+  get_it: ^7.6.0{{#needs_easy_localization}}
 
   # Localizations
-  easy_localization: ^3.0.2
+  easy_localization: ^3.0.2{{/needs_easy_localization}}
 
   # Widgets
   shimmer: ^3.0.0{{#needs_flutter_styled_toast}}
