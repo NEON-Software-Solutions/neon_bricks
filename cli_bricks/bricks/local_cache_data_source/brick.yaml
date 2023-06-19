@@ -1,8 +1,0 @@
-name: local_cache_data_source
-description: A brick to integrate the LocalCacheDataSource into a new Flutter project.
-
-version: 0.1.0+1
-
-environment:
-  mason: ">=0.1.0-dev.26 <0.1.0"
-
