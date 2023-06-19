@@ -1,14 +1,7 @@
 {{> app_imports.dart }}
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
-
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
