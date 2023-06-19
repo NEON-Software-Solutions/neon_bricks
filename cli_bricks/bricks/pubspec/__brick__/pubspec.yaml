@@ -108,8 +108,8 @@ flutter_icons:
 flutter: {{^needs_easy_localization}}
   generate: true{{/needs_easy_localization}}
   uses-material-design: true
-  assets:
-    - assets/translations/
+  assets:{{#needs_easy_localization}}
+    - assets/translations/{{/needs_easy_localization}}
     - assets/img/
 
   fonts:
