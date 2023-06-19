@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:{{project_name}}/features/authentication/domain/use_cases/params/sign_up_params.dart';
-import 'package:{{project_name}}/features/authentication/domain/use_cases/sign_up_uc.dart';
+import 'package:{{project_name}}/features/authentication/domain/params/sign_up_params.dart';
+import 'package:{{project_name}}/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:{{project_name}}/features/user_profile/domain/entities/user.dart';
 
 part 'sign_up_event.dart';
@@ -13,31 +13,43 @@ part 'sign_up_bloc.freezed.dart';
 
 @injectable
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final SignUpUC signUpUC;
-
-  SignUpBloc(this.signUpUC) : super(const _SignUpEditing()) {
+  SignUpBloc(this.authenticationRepository) : super(const _SignUpEditing()) {
     on<_ChangeEmailSignUp>(_onChangeEmail);
     on<_ChangeUsernameSignup>(_onChangeUsername);
     on<_ChangePasswordSignup>(_onChangePassword);
     on<_SignUp>(_onSignUp);
   }
 
-  void _onChangeUsername(_ChangeUsernameSignup event, Emitter emit) {
+  final AuthenticationRepository authenticationRepository;
+
+  void _onChangeUsername(
+    _ChangeUsernameSignup event,
+    Emitter<SignUpState> emit,
+  ) {
     if (state.isSubmitting) return;
     emit(state.copyWith(username: event.username));
   }
 
-  void _onChangeEmail(_ChangeEmailSignUp event, Emitter emit) {
+  void _onChangeEmail(
+    _ChangeEmailSignUp event,
+    Emitter<SignUpState> emit,
+  ) {
     if (state.isSubmitting) return;
     emit(state.copyWith(email: event.email));
   }
 
-  void _onChangePassword(_ChangePasswordSignup event, Emitter emit) {
+  void _onChangePassword(
+    _ChangePasswordSignup event,
+    Emitter<SignUpState> emit,
+  ) {
     if (state.isSubmitting) return;
     emit(state.copyWith(password: event.password));
   }
 
-  void _onSignUp(_SignUp event, Emitter emit) async {
+  void _onSignUp(
+    _SignUp event,
+    Emitter<SignUpState> emit,
+  ) async {
     if (canSignup) {
       emit(state.copyWith(isSubmitting: true));
       final signUpParams = SignUpParams(
@@ -45,7 +57,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         email: state.email!,
         password: state.password!,
       );
-      final res = await signUpUC(signUpParams);
+      final res = await authenticationRepository.signUp(signUpParams);
       res.fold(
         (l) {
           event.onError?.call(
