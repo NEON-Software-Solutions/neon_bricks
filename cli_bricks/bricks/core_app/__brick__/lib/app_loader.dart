@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:auto_route/auto_route.dart';{{#uses_authentication}}
+import 'package:flutter/cupertino.dart';{{#uses_authentication}}
 import 'package:flutter_bloc/flutter_bloc.dart';{{#share_feature}}
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';{{/share_feature}}
 
@@ -8,7 +7,6 @@ import 'package:{{project_name}}/core/core.dart';{{#share_feature}}
 import 'package:{{project_name}}/features/share/domain/dynamic_links_service.dart';
 import 'package:{{project_name}}/injection.dart';{{/share_feature}}
 
-@RoutePage()
 class AppLoader extends StatelessWidget {
   const AppLoader({Key? key}) : super(key: key);
 

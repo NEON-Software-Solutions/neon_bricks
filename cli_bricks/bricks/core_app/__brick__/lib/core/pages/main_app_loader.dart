@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';{{#user_feature}}
 import 'package:flutter/cupertino.dart';{{/user_feature}}
 
@@ -16,7 +15,6 @@ import 'package:{{project_name}}/features/authentication/authentication.dart';{{
 
 {{#uses_authentication}}{{#toast_service}}BuildContext? cachedContext;{{/toast_service}}{{/uses_authentication}}
 
-@RoutePage()
 class MainAppLoader extends StatelessWidget {
   const MainAppLoader({Key? key}) : super(key: key);
 

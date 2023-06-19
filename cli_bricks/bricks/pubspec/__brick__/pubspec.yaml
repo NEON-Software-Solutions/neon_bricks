@@ -50,7 +50,7 @@ dependencies:
   firebase_dynamic_links: ^5.3.3{{/needs_firebase_dynamic_links}}
 
   # Navigation
-  auto_route: ^7.4.0
+  go_router: ^8.0.5
 
   # Dependency Injection
   injectable: ^2.1.2
@@ -95,8 +95,7 @@ dev_dependencies:
   injectable_generator: ^2.1.6
   json_serializable: ^6.7.0
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.3.1
-  auto_route_generator: ^7.1.1{{#needs_retrofit}}
+  flutter_native_splash: ^2.3.1{{#needs_retrofit}}
   retrofit_generator: ^4.2.0{{/needs_retrofit}}
 
 flutter_icons:
