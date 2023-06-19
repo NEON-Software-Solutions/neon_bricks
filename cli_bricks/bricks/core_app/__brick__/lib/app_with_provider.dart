@@ -5,6 +5,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    {{^firebase_localization_loader_feature}}final l10n = AppLocalizations.of(context)!;{{/firebase_localization_loader_feature}}
     return {{#internet_cubit}}BlocProvider(create: (context) => getIt<InternetConnectionCubit>()..initialize(),child:{{/internet_cubit}}
     {{#theme_switching}}BlocProvider(create: (context) => getIt<ThemeCubit>(),child:BlocBuilder<ThemeCubit, ThemeData>(builder: (context, currentTheme) => {{/theme_switching}}
     {{#uses_authentication}}

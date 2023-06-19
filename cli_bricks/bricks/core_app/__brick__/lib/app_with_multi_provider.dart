@@ -5,6 +5,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    {{^firebase_localization_loader_feature}}final l10n = AppLocalizations.of(context)!;{{/firebase_localization_loader_feature}}
+
     return  MultiBlocProvider(
       providers: [
         {{#internet_cubit}}BlocProvider(create: (context) => getIt<InternetConnectionCubit>()..initialize(),),{{/internet_cubit}}

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';{{#user_feature}}
 import 'package:flutter/cupertino.dart';{{/user_feature}}
 {{#uses_authentication}}import 'package:go_router/go_router.dart';{{/uses_authentication}}
-{{#internet_cubit}}import 'package:neon_core/neon_core.dart';{{/internet_cubit}}
-import 'package:easy_localization/easy_localization.dart';{{#main_app_loader_imports_flutter_bloc}}
+{{#internet_cubit}}import 'package:neon_core/neon_core.dart';{{/internet_cubit}}{{#firebase_localization_loader_feature}}
+import 'package:easy_localization/easy_localization.dart';{{/firebase_localization_loader_feature}}{{^firebase_localization_loader_feature}}
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';{{/firebase_localization_loader_feature}}{{#main_app_loader_imports_flutter_bloc}}
 import 'package:flutter_bloc/flutter_bloc.dart';{{/main_app_loader_imports_flutter_bloc}}
 {{#share_feature}}
 import 'package:{{project_name}}/features/share/share.dart';
@@ -20,13 +21,15 @@ class MainAppLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    {{^firebase_localization_loader_feature}}final l10n = AppLocalizations.of(context)!;{{/firebase_localization_loader_feature}}
     {{#uses_authentication}}final user = context.read<AuthenticationBloc>().authenticatedUser;{{/uses_authentication}}
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: AutoSizeText(
-          'homePageTitle'.tr(),
+        title: AutoSizeText({{#firebase_localization_loader_feature}}
+          'homePageTitle'.tr(),{{/firebase_localization_loader_feature}}{{^firebase_localization_loader_feature}}
+          l10n.homePageTitle,{{/firebase_localization_loader_feature}}
           maxLines: 1,
         ),{{#user_feature}}
         actions: [
@@ -48,9 +51,10 @@ class MainAppLoader extends StatelessWidget {
               style: kTextBodyLarge,
             ),
             connected: (_) =>{{/internet_cubit}} 
-            {{#main_app_loader_renders_column}}Column(mainAxisAlignment: MainAxisAlignment.center,children: [{{/main_app_loader_renders_column}}
+            {{#main_app_loader_renders_column}}Column(mainAxisAlignment: MainAxisAlignment.center,children: [{{/main_app_loader_renders_column}}{{^firebase_localization_loader_feature}}
+            Text(l10n.youAreLoggedIn({{#uses_authentication}}user!.name{{/uses_authentication}}{{^uses_authentication}}'testUser'{{/uses_authentication}})),{{/firebase_localization_loader_feature}}{{#firebase_localization_loader_feature}}
         Text('youAreLoggedIn'.tr(namedArgs: {'userName':{{#uses_authentication}}user!.name{{/uses_authentication}}{{^uses_authentication}}'testUser'{{/uses_authentication}}
-        })),{{#theme_switching}}
+        })),{{/firebase_localization_loader_feature}}{{#theme_switching}}
         BlocBuilder<ThemeCubit, ThemeData>(
               builder: (context, state) => TextButton(
                 onPressed: context.read<ThemeCubit>().switchTheme,

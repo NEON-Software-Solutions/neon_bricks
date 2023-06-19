@@ -1,5 +1,5 @@
 MaterialApp.router(
-      title: 'appTitle'.tr(),
+      title: {{#firebase_localization_loader_feature}}'appTitle'.tr(),{{/firebase_localization_loader_feature}}{{^firebase_localization_loader_feature}}l10n.appTitle,{{/firebase_localization_loader_feature}}
       routerConfig: appRouter,{{#firebase_localization_loader_feature}}
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

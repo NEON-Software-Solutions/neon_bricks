@@ -8,8 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';{{/theme_switching}}
 {{^theme_switching}}import 'package:bloc/bloc.dart';{{/theme_switching}}{{#local_cache_datasource}}
-import 'package:hive_flutter/hive_flutter.dart';{{/local_cache_datasource}}{{^firebase_localization_loader_feature}}
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';{{/firebase_localization_loader_feature}}
+import 'package:hive_flutter/hive_flutter.dart';{{/local_cache_datasource}}
 import 'package:neon_core/neon_core.dart';{{#firebase_localization_loader_feature}}
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
