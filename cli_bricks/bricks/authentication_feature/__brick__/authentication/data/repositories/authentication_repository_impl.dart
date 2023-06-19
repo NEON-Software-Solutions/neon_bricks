@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import 'package:{{project_name}}/features/authentication/data/data_source/authentication_data_source.dart';
 import 'package:{{project_name}}/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:{{project_name}}/features/authentication/domain/use_cases/params/params.dart';
+import 'package:{{project_name}}/features/authentication/domain/params/params.dart';
 import 'package:{{project_name}}/features/user_profile/domain/entities/user.dart';{{#firebase_crashlytics_feature}}
 import 'package:{{project_name}}/core/core.dart';{{/firebase_crashlytics_feature}}
 

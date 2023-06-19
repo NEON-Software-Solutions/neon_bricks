@@ -5,6 +5,7 @@ import 'package:neon_core/neon_core.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:{{project_name}}/features/authentication/authentication.dart';
+import 'package:{{project_name}}/features/authentication/domain/params/params.dart';
 import 'package:{{project_name}}/features/user_profile/user_profile.dart';
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
@@ -17,21 +18,22 @@ class EventFunctions {
 
 class MockFunctions extends Mock implements EventFunctions {}
 
-class MockLoginLocallyUC extends Mock implements LoginUC {}
+class MockAuthenticationRepo extends Mock implements AuthenticationRepository {}
 
 class FakeLoginParams extends Fake implements LoginParams {}
 
 class FakeUser extends Fake implements User {}
 
-LoginBloc _buildLoginBlocWithMockUC({Either<Failure, User>? mockReturnValue}) {
-  final mockLoginUC = MockLoginLocallyUC();
+LoginBloc _buildLoginBlocWithMockAuthRepo(
+    {Either<Failure, User>? mockReturnValue}) {
+  final mockAuthRepo = MockAuthenticationRepo();
   if (mockReturnValue != null) {
     when(
-      () => mockLoginUC.call(any<FakeLoginParams>()),
+      () => mockAuthRepo.login(any<FakeLoginParams>()),
     ).thenAnswer((_) async => mockReturnValue);
   }
 
-  return LoginBloc(mockLoginUC);
+  return LoginBloc(mockAuthRepo);
 }
 
 void main() {
@@ -42,8 +44,8 @@ void main() {
   blocTest<LoginBloc, LoginState>(
     "LoginBloc's initial state is an empty editing State",
     build: () {
-      final mockLoginUC = MockLoginLocallyUC();
-      return LoginBloc(mockLoginUC);
+      final mockAuthRepo = MockAuthenticationRepo();
+      return LoginBloc(mockAuthRepo);
     },
     verify: (bloc) {
       expect(bloc.state.loading, false);
@@ -54,8 +56,8 @@ void main() {
   blocTest<LoginBloc, LoginState>(
     "LoginBloc emits nothing when nothing is added",
     build: () {
-      final mockLoginUC = MockLoginLocallyUC();
-      return LoginBloc(mockLoginUC);
+      final mockAuthRepo = MockAuthenticationRepo();
+      return LoginBloc(mockAuthRepo);
     },
     expect: () => const [],
   );
@@ -64,14 +66,14 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       "onChangeEmail emits nothing if state.loading",
       seed: () => const LoginState.editing(loading: true),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const LoginEvent.changeEmail(email: 'email'))),
       expect: () => [],
     );
 
     blocTest<LoginBloc, LoginState>(
       "onChangeEmail updates email",
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const LoginEvent.changeEmail(email: 'email'))),
       expect: () => [
         const LoginState.editing(
@@ -85,7 +87,7 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       "onChangeEmail only updates email",
       seed: () => const LoginState.editing(password: 'password'),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const LoginEvent.changeEmail(email: 'email'))),
       expect: () => [
         const LoginState.editing(
@@ -101,7 +103,7 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       "onChangePassword emits nothing if state.loading",
       seed: () => const LoginState.editing(loading: true),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const LoginEvent.changePassword(password: 'password'))),
       expect: () => [],
@@ -109,7 +111,7 @@ void main() {
 
     blocTest<LoginBloc, LoginState>(
       "onChangePassword updates password",
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const LoginEvent.changePassword(password: 'password'))),
       expect: () => [
@@ -124,7 +126,7 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       "onChangePassword only updates password",
       seed: () => const LoginState.editing(email: 'email'),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const LoginEvent.changePassword(password: 'password'))),
       expect: () => [
@@ -155,8 +157,8 @@ void main() {
       "onLogin emits original state when login fails",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () =>
-          _buildLoginBlocWithMockUC(mockReturnValue: const Left(Failure())),
+      build: () => _buildLoginBlocWithMockAuthRepo(
+          mockReturnValue: const Left(Failure())),
       act: (bloc) => bloc.add(const LoginEvent.startLocalLogin()),
       expect: () => const [
         LoginState.editing(
@@ -176,7 +178,7 @@ void main() {
       "onLogin emits previous state with loading = true when login succeeds",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () => _buildLoginBlocWithMockUC(
+      build: () => _buildLoginBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) => bloc.add(const LoginEvent.startLocalLogin()),
       expect: () => const [
@@ -192,8 +194,8 @@ void main() {
       "only onError is called once when login fails",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () =>
-          _buildLoginBlocWithMockUC(mockReturnValue: const Left(Failure())),
+      build: () => _buildLoginBlocWithMockAuthRepo(
+          mockReturnValue: const Left(Failure())),
       act: (bloc) {
         final event = LoginEvent.startLocalLogin(
           onError: functionsMock.onError,
@@ -215,7 +217,7 @@ void main() {
       "onError is called with given failure error message when login fails",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () => _buildLoginBlocWithMockUC(
+      build: () => _buildLoginBlocWithMockAuthRepo(
           mockReturnValue: const Left(Failure('my-error-message'))),
       act: (bloc) {
         final event = LoginEvent.startLocalLogin(
@@ -235,7 +237,7 @@ void main() {
       "only onSuccess is called once when login succeeds",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () => _buildLoginBlocWithMockUC(
+      build: () => _buildLoginBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) {
         final event = LoginEvent.startLocalLogin(
@@ -258,7 +260,7 @@ void main() {
       "loginLocallyUC is called exactly once when login is possible",
       seed: () =>
           const LoginState.editing(email: 'email', password: 'password'),
-      build: () => _buildLoginBlocWithMockUC(
+      build: () => _buildLoginBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) {
         final event = LoginEvent.startLocalLogin(
@@ -269,7 +271,7 @@ void main() {
       },
       verify: (bloc) {
         verify(
-          () => bloc.loginLocallyUC(any<FakeLoginParams>()),
+          () => bloc.authenticationRepository.login(any<FakeLoginParams>()),
         ).called(1);
       },
     );
@@ -277,7 +279,7 @@ void main() {
   group('LoginBloc.canLogin', () {
     blocTest<LoginBloc, LoginState>(
       "LoginBloc.canLogin returns false initially",
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
     blocTest<LoginBloc, LoginState>(
@@ -286,7 +288,7 @@ void main() {
         email: null,
         password: 'password',
       ),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
     blocTest<LoginBloc, LoginState>(
@@ -295,14 +297,14 @@ void main() {
         email: 'email',
         password: null,
       ),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
 
     blocTest<LoginBloc, LoginState>(
       "LoginBloc.canLogin returns false if state.loading is true",
       seed: () => const LoginState.editing(loading: true),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
     blocTest<LoginBloc, LoginState>(
@@ -311,7 +313,7 @@ void main() {
         email: '',
         password: 'password',
       ),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
 
@@ -321,7 +323,7 @@ void main() {
         email: 'email',
         password: '',
       ),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, false),
     );
 
@@ -331,7 +333,7 @@ void main() {
         email: 'email',
         password: 'password',
       ),
-      build: () => _buildLoginBlocWithMockUC(),
+      build: () => _buildLoginBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canLogin, true),
     );
   });

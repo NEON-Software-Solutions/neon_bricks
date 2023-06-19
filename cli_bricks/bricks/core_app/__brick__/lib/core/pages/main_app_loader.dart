@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';{{#user_feature}}
 import 'package:flutter/cupertino.dart';{{/user_feature}}
-
+{{#uses_authentication}}import 'package:go_router/go_router.dart';{{/uses_authentication}}
 {{#internet_cubit}}import 'package:neon_core/neon_core.dart';{{/internet_cubit}}
 import 'package:easy_localization/easy_localization.dart';{{#main_app_loader_imports_flutter_bloc}}
 import 'package:flutter_bloc/flutter_bloc.dart';{{/main_app_loader_imports_flutter_bloc}}
@@ -35,7 +35,7 @@ class MainAppLoader extends StatelessWidget {
             icon: Icon(CupertinoIcons.home),
           ),
           IconButton(
-            onPressed: () => context.router.navigate(const UserProfileRoute()),
+            onPressed: () => context.push('/user-profile'),
             icon: const Icon(CupertinoIcons.person),
           ),
         ],{{/user_feature}}
@@ -65,7 +65,7 @@ class MainAppLoader extends StatelessWidget {
         {{#uses_authentication}}
         TextButton(
                   onPressed: () {
-                    context.router.popUntilRoot();
+                    context.go('/');
                     context
                         .read<AuthenticationBloc>()
                         .add(const AuthenticationEvent.logout());

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';{{#uses_authentication_feature}}
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:auto_route/auto_route.dart';
 
 import 'package:{{project_name}}/features/authentication/authentication.dart';{{/uses_authentication_feature}}
 import 'package:{{project_name}}/features/user_profile/user_profile.dart';
 
-@RoutePage()
 class UserProfileLoader extends StatelessWidget {
   const UserProfileLoader({Key? key}) : super(key: key);
 

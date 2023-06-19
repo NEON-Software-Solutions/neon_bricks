@@ -5,12 +5,13 @@ import 'package:neon_core/neon_core.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:{{project_name}}/features/authentication/authentication.dart';
+import 'package:{{project_name}}/features/authentication/domain/params/params.dart';
 import 'package:{{project_name}}/features/user_profile/user_profile.dart';
 
 class MockSignUpBloc extends MockBloc<SignUpEvent, SignUpState>
     implements SignUpBloc {}
 
-class MockSignUpUC extends Mock implements SignUpUC {}
+class MockAuthenticationRepo extends Mock implements AuthenticationRepository {}
 
 class EventFunctions {
   onError(String string) {}
@@ -23,16 +24,16 @@ class FakeSignUpParams extends Fake implements SignUpParams {}
 
 class FakeUser extends Fake implements User {}
 
-SignUpBloc _buildSignUpBlocWithMockUC(
+SignUpBloc _buildSignUpBlocWithMockAuthRepo(
     {Either<Failure, User>? mockReturnValue}) {
-  final mockSignupUC = MockSignUpUC();
+  final mockAuthRepo = MockAuthenticationRepo();
   if (mockReturnValue != null) {
     when(
-      () => mockSignupUC.call(any<FakeSignUpParams>()),
+      () => mockAuthRepo.signUp(any<FakeSignUpParams>()),
     ).thenAnswer((_) async => mockReturnValue);
   }
 
-  return SignUpBloc(mockSignupUC);
+  return SignUpBloc(mockAuthRepo);
 }
 
 void main() {
@@ -43,8 +44,8 @@ void main() {
   blocTest<SignUpBloc, SignUpState>(
     "SignUpBloc's initial state is an empty editing State",
     build: () {
-      final mockSignupUC = MockSignUpUC();
-      return SignUpBloc(mockSignupUC);
+      final mockAuthRepo = MockAuthenticationRepo();
+      return SignUpBloc(mockAuthRepo);
     },
     verify: (bloc) {
       expect(bloc.state.isSubmitting, false);
@@ -56,8 +57,8 @@ void main() {
   blocTest<SignUpBloc, SignUpState>(
     "SignUpBloc emits nothing when nothing is added",
     build: () {
-      final mockSignupUC = MockSignUpUC();
-      return SignUpBloc(mockSignupUC);
+      final mockAuthRepo = MockAuthenticationRepo();
+      return SignUpBloc(mockAuthRepo);
     },
     expect: () => const [],
   );
@@ -66,7 +67,7 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangeUsername emits nothing if state.isSubmitting",
       seed: () => const SignUpState.editing(isSubmitting: true),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changeUsername(username: 'username'))),
       expect: () => [],
@@ -74,7 +75,7 @@ void main() {
 
     blocTest<SignUpBloc, SignUpState>(
       "onChangeUsername updates username",
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changeUsername(username: 'username'))),
       expect: () => [
@@ -90,7 +91,7 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangeUsername updates username",
       seed: () => const SignUpState.editing(password: 'password'),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changeUsername(username: 'username'))),
       expect: () => [
@@ -108,14 +109,14 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangeEmail emits nothing if state.isSubmitting",
       seed: () => const SignUpState.editing(isSubmitting: true),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const SignUpEvent.changeEmail(email: 'email'))),
       expect: () => [],
     );
 
     blocTest<SignUpBloc, SignUpState>(
       "onChangeEmail updates email",
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const SignUpEvent.changeEmail(email: 'email'))),
       expect: () => [
         const SignUpState.editing(
@@ -129,7 +130,7 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangeEmail only updates email",
       seed: () => const SignUpState.editing(password: 'password'),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) => bloc.add(const SignUpEvent.changeEmail(email: 'email'))),
       expect: () => [
         const SignUpState.editing(
@@ -145,7 +146,7 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangePassword emits nothing if state.isSubmitting",
       seed: () => const SignUpState.editing(isSubmitting: true),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changePassword(password: 'password'))),
       expect: () => [],
@@ -153,7 +154,7 @@ void main() {
 
     blocTest<SignUpBloc, SignUpState>(
       "onChangePassword updates password",
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changePassword(password: 'password'))),
       expect: () => [
@@ -168,7 +169,7 @@ void main() {
     blocTest<SignUpBloc, SignUpState>(
       "onChangePassword only updates password",
       seed: () => const SignUpState.editing(email: 'email'),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       act: ((bloc) =>
           bloc.add(const SignUpEvent.changePassword(password: 'password'))),
       expect: () => [
@@ -199,8 +200,8 @@ void main() {
       "onSignUp emits original state when sign up fails",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () =>
-          _buildSignUpBlocWithMockUC(mockReturnValue: const Left(Failure())),
+      build: () => _buildSignUpBlocWithMockAuthRepo(
+          mockReturnValue: const Left(Failure())),
       act: (bloc) => bloc.add(const SignUpEvent.signUp()),
       expect: () => const [
         SignUpState.editing(
@@ -222,7 +223,7 @@ void main() {
       "onSignUp emits previous state with isSubmitting = true when signUp succeeds",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () => _buildSignUpBlocWithMockUC(
+      build: () => _buildSignUpBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) => bloc.add(const SignUpEvent.signUp()),
       expect: () => const [
@@ -239,8 +240,8 @@ void main() {
       "only onError is called once when signup fails",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () =>
-          _buildSignUpBlocWithMockUC(mockReturnValue: const Left(Failure())),
+      build: () => _buildSignUpBlocWithMockAuthRepo(
+          mockReturnValue: const Left(Failure())),
       act: (bloc) => bloc.add(SignUpEvent.signUp(
         onError: functionsMock.onError,
         onSuccess: functionsMock.onSuccess,
@@ -259,7 +260,7 @@ void main() {
       "onError is called with given failure error message when signup fails",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () => _buildSignUpBlocWithMockUC(
+      build: () => _buildSignUpBlocWithMockAuthRepo(
           mockReturnValue: const Left(Failure('my-error-message'))),
       act: (bloc) => bloc.add(SignUpEvent.signUp(
         onError: functionsMock.onError,
@@ -276,7 +277,7 @@ void main() {
       "only onSuccess is called once when signup succeeds",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () => _buildSignUpBlocWithMockUC(
+      build: () => _buildSignUpBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) => bloc.add(SignUpEvent.signUp(
         onError: functionsMock.onError,
@@ -296,7 +297,7 @@ void main() {
       "signUpUC is called exactly once when signup is possible",
       seed: () => const SignUpState.editing(
           email: 'valid@email.com', password: 'password', username: 'username'),
-      build: () => _buildSignUpBlocWithMockUC(
+      build: () => _buildSignUpBlocWithMockAuthRepo(
           mockReturnValue: Right(User(name: 'name', id: 'id'))),
       act: (bloc) => bloc.add(SignUpEvent.signUp(
         onError: functionsMock.onError,
@@ -304,7 +305,7 @@ void main() {
       )),
       verify: (bloc) {
         verify(
-          () => bloc.signUpUC(any<FakeSignUpParams>()),
+          () => bloc.authenticationRepository.signUp(any<FakeSignUpParams>()),
         ).called(1);
       },
     );
@@ -312,14 +313,14 @@ void main() {
   group('SignUpBloc.canSignUp', () {
     blocTest<SignUpBloc, SignUpState>(
       "SignUpBloc.canSignup returns false initially",
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
     blocTest<SignUpBloc, SignUpState>(
       "SignUpBloc.canSignup returns false if state.isSubmitting is true",
       seed: () => const SignUpState.editing(isSubmitting: true),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
     blocTest<SignUpBloc, SignUpState>(
@@ -328,7 +329,7 @@ void main() {
         email: null,
         password: 'password',
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -338,7 +339,7 @@ void main() {
         email: null,
         password: 'password',
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
     blocTest<SignUpBloc, SignUpState>(
@@ -348,7 +349,7 @@ void main() {
         password: 'password',
         username: null,
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -358,7 +359,7 @@ void main() {
         username: '',
         password: 'password',
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -368,7 +369,7 @@ void main() {
         email: 'email',
         password: '',
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -376,7 +377,7 @@ void main() {
       "SignUpBloc.canSignup returns false with email too short",
       seed: () => const SignUpState.editing(
           email: 'ema', password: 'password', username: 'user'),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -386,7 +387,7 @@ void main() {
           email: 'thisisaninvalid@email',
           password: 'password',
           username: 'user'),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, false),
     );
 
@@ -397,7 +398,7 @@ void main() {
         username: 'username',
         password: 'password',
       ),
-      build: () => _buildSignUpBlocWithMockUC(),
+      build: () => _buildSignUpBlocWithMockAuthRepo(),
       verify: (bloc) => expect(bloc.canSignup, true),
     );
   });

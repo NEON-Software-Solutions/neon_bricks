@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'package:{{project_name}}/core/core.dart';
 import 'package:{{project_name}}/features/user_profile/domain/domain.dart';
 
 import 'widgets/user_avatar.dart';
@@ -24,7 +23,7 @@ class UserProfilePage extends StatelessWidget {
         title: const Text('homePageTitle').tr(),
         actions: [
           IconButton(
-            onPressed: () => context.router.navigate(const MainAppRoute()),
+            onPressed: () => context.pop(),
             icon: const Icon(CupertinoIcons.home),
           ),
           const IconButton(
