@@ -4,3 +4,5 @@
 **/.dart_tool/*
 **/pubspec.lock
 **/bricks/core_app/hooks/.dart_tool/*
+
+.vscode/settings.json
