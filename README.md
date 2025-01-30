@@ -2,7 +2,7 @@
 
 Every single 🧱 we came up with at NEON SOFTWARE STUDIOS that can help us make our day-to-day dev job easier and more fun!
 
-## Usage of the NEON Bricks / Verwendung der NEON Bricks
+## Usage of the NEON Bricks
 
 Implement new 🧱 in the directory (```bricks```). To get started, use ```mason new``` (you need to install the [mason CLI][mason_cli_link] to be able to do so). Do not forget to add your new 🧱 to the ```mason.yaml``` of the [NEON Core App][core_app_link] so that the reference to your new 🧱 will be generated the next time!
 
